@@ -29,6 +29,9 @@ public class UserEntity extends BaseEntity {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "phone", unique = true)
+    private String phone;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
@@ -41,6 +44,8 @@ public class UserEntity extends BaseEntity {
 //
 //    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
 //    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userEntities")
+    List<BuildingEntity> buildingEntityList = new ArrayList<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -102,5 +107,13 @@ public class UserEntity extends BaseEntity {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
