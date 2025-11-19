@@ -96,39 +96,20 @@ public class BuildingEntity extends BaseEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingList")
     List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
-    List<AssignmentBuildingEntity> assignBuildingEntities = new ArrayList<>();
 
-//    @ManyToMany(fetch =  FetchType.LAZY)
-//    @JoinTable(name = "assignmentbuilding",
-//            joinColumns = @JoinColumn(name = "buildingid", nullable = false),
-//            inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false)
-//    )
-//    private List<UserEntity> userEntities = new ArrayList<>();
-
-    public List<AssignmentBuildingEntity> getAssignBuildingEntities() {
-        return assignBuildingEntities;
-    }
-
-    public void setAssignBuildingEntities(List<AssignmentBuildingEntity> assignBuildingEntities) {
-        this.assignBuildingEntities = assignBuildingEntities;
-    }
-
+    @ManyToMany(fetch =  FetchType.LAZY)
+    @JoinTable(name = "assignmentbuilding",
+            joinColumns = @JoinColumn(name = "buildingid", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false)
+    )
+    private List<UserEntity> userEntities = new ArrayList<>();
 
     public List<UserEntity> getUserEntities() {
-        List<UserEntity> userEntities = new ArrayList<>();
-        for (AssignmentBuildingEntity assignmentBuildingEntity : assignBuildingEntities) {
-            userEntities.add(assignmentBuildingEntity.getUserEntity());
-        }
         return userEntities;
     }
 
     public void setUserEntities(List<UserEntity> userEntities) {
-        int i = 0;
-        for (AssignmentBuildingEntity assignmentBuildingEntity : assignBuildingEntities) {
-            assignmentBuildingEntity.setUserEntity(userEntities.get(i));
-            i += 1;
-        }
+        this.userEntities = userEntities;
     }
 
     public List<RentAreaEntity> getRentAreaEntities() {
