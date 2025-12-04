@@ -155,21 +155,18 @@
                                         <span class="lbl"></span>
                                     </label>
                                 </th>
-                                <th>Tên tòa nhà</th>
-                                <th>Địa chỉ</th>
-                                <th>Số tầng hầm</th>
-                                <th>Tên quản lí</th>
-                                <th>SĐT quản lí</th>
-                                <th>D.Tích sàn</th>
-                                <th>D.Tích trống</th>
-                                <th>D.Tích thuê</th>
-                                <th>Phí môi giới</th>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Email</th>
+                                <th>Tên công ty</th>
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
                                 <th>Thao tác</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <c:forEach var="item" items="${buildingPage.content}">
+                            <c:forEach var="item" items="${customerPage.content}">
                                 <tr>
                                 <td class="center">
                                     <label class="pos-rel">
@@ -178,16 +175,13 @@
                                     </label>
                                 </td>
                                 <td>
-                                    ${item.name}
+                                    ${item.fullName}
                                 </td>
-                                <td>${item.address}</td>
-                                <td>${item.numberOfBasement}</td>
-                                <td>${item.managerName}</td>
-                                <td>${item.managerPhone}</td>
-                                <td>${item.floorArea}</td>
-                                <td>${item.rentArea}</td>
-                                <td>${item.rentPrice}</td>
-                                <td>${item.brokerageFee}</td>
+                                <td>${item.phone}</td>
+                                <td>${item.email}</td>
+                                <td>${item.companyName}</td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <div class="hidden-sm hidden-xs btn-group">
                                     <security:authorize access="hasRole('MANAGER')">
@@ -213,71 +207,42 @@
                         </table>
                     </div><!-- /.span -->
                 </div>
-                <c:if test="${buildingPage.totalPages > 0}">
+                <c:if test="${customerPage.totalPages > 0}">
             <ul class="pagination">
                 <%-- Nút Lùi (Previous) --%>
                 <c:choose>
-                    <c:when test="${buildingPage.first}">
+                    <c:when test="${customerPage.first}">
                         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     </c:when>
                     <c:otherwise>
-                        <c:url var="prevPageUrl" value="/admin/building-list">
-                            <c:param name="page" value="${buildingPage.number - 1}"/>
-                            <c:param name="size" value="${buildingPage.size}"/>
+                        <c:url var="prevPageUrl" value="/admin/customer-list">
+                            <c:param name="page" value="${customerPage.number - 1}"/>
+                            <c:param name="size" value="${customerPage.size}"/>
                             <%-- Thêm TẤT CẢ filter param vào đây --%>
-                            <c:param name="name" value="${buildingSearch.name}"/>
-                            <c:param name="floorArea" value="${buildingSearch.floorArea}"/>
-                            <c:param name="district" value="${buildingSearch.district}"/>
-                            <c:param name="ward" value="${buildingSearch.ward}"/>
-                            <c:param name="street" value="${buildingSearch.street}"/>
-                            <c:param name="numberOfBasement" value="${buildingSearch.numberOfBasement}"/>
-                            <c:param name="direction" value="${buildingSearch.direction}"/>
-                            <c:param name="level" value="${buildingSearch.level}"/>
-                            <c:param name="areaFrom" value="${buildingSearch.areaFrom}"/>
-                            <c:param name="areaTo" value="${buildingSearch.areaTo}"/>
-                            <c:param name="rentPriceFrom" value="${buildingSearch.rentPriceFrom}"/>
-                            <c:param name="rentPriceTo" value="${buildingSearch.rentPriceTo}"/>
-                            <c:param name="managerName" value="${buildingSearch.managerName}"/>
-                            <c:param name="managerPhone" value="${buildingSearch.managerPhone}"/>
-                            <c:param name="staffId" value="${buildingSearch.staffId}"/>
+                            <c:param name="name" value="${customerSearch.name}"/>
+                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
+                            <c:param name="managerPhone" value="${customerSearch.email}"/>
+                            <c:param name="staffId" value="${customerSearch.staffId}"/>
                             <%-- SỬA LẠI TYPECODE: Dùng vòng lặp --%>
-                            <c:forEach var="type" items="${buildingSearch.typeCode}">
-                                <c:param name="typeCode" value="${type}"/>
-                            </c:forEach>
                         </c:url>
                         <li class="page-item"><a class="page-link" href="${prevPageUrl}">Previous</a></li>
                     </c:otherwise>
                 </c:choose>
 
                 <%-- Các nút số trang --%>
-                <c:forEach var="i" begin="0" end="${buildingPage.totalPages - 1}">
-                    <c:url var="pageUrl" value="/admin/building-list">
+                <c:forEach var="i" begin="0" end="${customerPage.totalPages - 1}">
+                    <c:url var="pageUrl" value="/admin/customer-list">
                         <c:param name="page" value="${i}"/>
-                        <c:param name="size" value="${buildingPage.size}"/>
+                        <c:param name="size" value="${customerPage.size}"/>
                         <%-- Tất cả các filter param (giống hệt ở trên) --%>
-                        <c:param name="name" value="${buildingSearch.name}"/>
-                        <c:param name="floorArea" value="${buildingSearch.floorArea}"/>
-                        <c:param name="district" value="${buildingSearch.district}"/>
-                        <c:param name="ward" value="${buildingSearch.ward}"/>
-                        <c:param name="street" value="${buildingSearch.street}"/>
-                        <c:param name="numberOfBasement" value="${buildingSearch.numberOfBasement}"/>
-                        <c:param name="direction" value="${buildingSearch.direction}"/>
-                        <c:param name="level" value="${buildingSearch.level}"/>
-                        <c:param name="areaFrom" value="${buildingSearch.areaFrom}"/>
-                        <c:param name="areaTo" value="${buildingSearch.areaTo}"/>
-                        <c:param name="rentPriceFrom" value="${buildingSearch.rentPriceFrom}"/>
-                        <c:param name="rentPriceTo" value="${buildingSearch.rentPriceTo}"/>
-                        <c:param name="managerName" value="${buildingSearch.managerName}"/>
-                        <c:param name="managerPhone" value="${buildingSearch.managerPhone}"/>
-                        <c:param name="staffId" value="${buildingSearch.staffId}"/>
-                        <%-- SỬA LẠI TYPECODE: Dùng vòng lặp --%>
-                        <c:forEach var="type" items="${buildingSearch.typeCode}">
-                            <c:param name="typeCode" value="${type}"/>
-                        </c:forEach>
+                        <c:param name="name" value="${customerSearch.name}"/>
+                        <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
+                        <c:param name="managerPhone" value="${customerSearch.email}"/>
+                        <c:param name="staffId" value="${customerSearch.staffId}"/>
                     </c:url>
 
                     <c:choose>
-                        <c:when test="${i == buildingPage.number}">
+                        <c:when test="${i == customerPage.number}">
                             <li class="page-item active"><a class="page-link" href="${pageUrl}">${i + 1}</a></li>
                         </c:when>
                         <c:otherwise>
@@ -288,33 +253,18 @@
 
                 <%-- Nút Tới (Next) --%>
                 <c:choose>
-                    <c:when test="${buildingPage.last}">
+                    <c:when test="${customerPage.last}">
                         <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     </c:when>
                     <c:otherwise>
-                        <c:url var="nextPageUrl" value="/admin/building-list">
-                            <c:param name="page" value="${buildingPage.number + 1}"/>
-                            <c:param name="size" value="${buildingPage.size}"/>
+                        <c:url var="nextPageUrl" value="/admin/customer-list">
+                            <c:param name="page" value="${customerPage.number + 1}"/>
+                            <c:param name="size" value="${customerPage.size}"/>
                             <%-- Tất cả các filter param (giống hệt ở trên) --%>
-                            <c:param name="name" value="${buildingSearch.name}"/>
-                            <c:param name="floorArea" value="${buildingSearch.floorArea}"/>
-                            <c:param name="district" value="${buildingSearch.district}"/>
-                            <c:param name="ward" value="${buildingSearch.ward}"/>
-                            <c:param name="street" value="${buildingSearch.street}"/>
-                            <c:param name="numberOfBasement" value="${buildingSearch.numberOfBasement}"/>
-                            <c:param name="direction" value="${buildingSearch.direction}"/>
-                            <c:param name="level" value="${buildingSearch.level}"/>
-                            <c:param name="areaFrom" value="${buildingSearch.areaFrom}"/>
-                            <c:param name="areaTo" value="${buildingSearch.areaTo}"/>
-                            <c:param name="rentPriceFrom" value="${buildingSearch.rentPriceFrom}"/>
-                            <c:param name="rentPriceTo" value="${buildingSearch.rentPriceTo}"/>
-                            <c:param name="managerName" value="${buildingSearch.managerName}"/>
-                            <c:param name="managerPhone" value="${buildingSearch.managerPhone}"/>
-                            <c:param name="staffId" value="${buildingSearch.staffId}"/>
-                            <%-- SỬA LẠI TYPECODE: Dùng vòng lặp --%>
-                            <c:forEach var="type" items="${buildingSearch.typeCode}">
-                                <c:param name="typeCode" value="${type}"/>
-                            </c:forEach>
+                            <c:param name="name" value="${customerSearch.name}"/>
+                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
+                            <c:param name="managerPhone" value="${customerSearch.email}"/>
+                            <c:param name="staffId" value="${customerSearch.staffId}"/>
                         </c:url>
                         <li class="page-item"><a class="page-link" href="${nextPageUrl}">Next</a></li>
                     </c:otherwise>

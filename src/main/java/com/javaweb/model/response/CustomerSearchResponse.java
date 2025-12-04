@@ -3,6 +3,8 @@ package com.javaweb.model.response;
 import javax.persistence.Column;
 
 public class CustomerSearchResponse {
+    private Long id;
+
     private String fullName;
 
     private String phone;
@@ -15,9 +17,9 @@ public class CustomerSearchResponse {
 
     private String status;
 
-    private String adder;
-
-    private String date;
+//    private String adder;
+//
+//    private String date;
 
     public String getPhone() {
         return phone;
@@ -67,19 +69,26 @@ public class CustomerSearchResponse {
         this.status = status;
     }
 
-    public String getAdder() {
-        return adder;
+//    public String getAdder() {
+//        return adder;
+//    }
+//
+//    public void setAdder(String adder) {
+//        this.adder = adder;
+//    }
+//
+//    public String getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(String date) {
+//        this.date = date;
+//    }
+    public Long getId() {
+        return id;
     }
 
-    public void setAdder(String adder) {
-        this.adder = adder;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

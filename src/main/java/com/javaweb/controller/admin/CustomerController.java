@@ -1,6 +1,8 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.model.request.CustomerSearchRequest;
+import com.javaweb.security.utils.SecurityUtils;
+import com.javaweb.service.impl.CustomerService;
 import com.javaweb.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
@@ -19,13 +21,23 @@ public class CustomerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @RequestMapping(value="/admin/customer-list", method = RequestMethod.GET)
     public ModelAndView customerList(@ModelAttribute("customerSearch") CustomerSearchRequest  customerSearchRequest,
-                                     HttpServletRequest request, @PageableDefault(size = 3, page = 0) Pageable pageable) {
+                                     HttpServletRequest request, @PageableDefault(size = 2, page = 0) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("admin/customer/list");
 
         modelAndView.addObject("customerSearch",  customerSearchRequest);
         modelAndView.addObject("listStaffs", userService.getStaffs());
+        if (SecurityUtils.getAuthorities().contains("ROLE_STAFF")) {
+            long staffId = SecurityUtils.getPrincipal().getId();
+            customerSearchRequest.setStaffId(staffId);
+            modelAndView.addObject("customerPage", customerService.listCustomers(customerSearchRequest, pageable));
+        } else {
+            modelAndView.addObject("customerPage", customerService.listCustomers(customerSearchRequest, pageable));
+        }
         return modelAndView;
     }
 
