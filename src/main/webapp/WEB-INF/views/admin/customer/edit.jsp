@@ -35,11 +35,11 @@
 
                 <div class="page-header">
                     <h1>
-                        Dashboard
-                        <small>
-                            <i class="ace-icon fa fa-angle-double-right"></i>
-                            overview &amp; stats
-                        </small>
+                        THÔNG TIN KHÁCH HÀNG
+<%--                        <small>--%>
+<%--                            <i class="ace-icon fa fa-angle-double-right"></i>--%>
+<%--                            overview &amp; stats--%>
+<%--                        </small>--%>
                     </h1>
                 </div><!-- /.page-header -->
 
@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <label class="col-xs-3">Tên khách hàng</label>
                                 <div class="col-xs-9">
-                                    <form:input class="form-control" path="name"/>
+                                    <form:input class="form-control" path="fullName"/>
                                 </div>
                             </div>
 
@@ -119,9 +119,12 @@
 
                 </div>
             </div><!-- /.page-content -->
+
+
         </div>
     </div><!-- /.main-content -->
 </div><!-- /.main-container -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $('#btnAddOrUpdateCustomer').click(function(){
         var data = {};
@@ -130,10 +133,33 @@
             data["" + v.name + ""] = v.value;
         });
 
-        if (data['name'] != "" && data['customerPhone'] != "") {  // validate in front end
+        if (data['fullName'] != "" && data['customerPhone'] != "") {  // validate in front end
             addOrUpdateCustomer(data);
         } else {
-            window.location.href = "<c:url value="/admin/customer-edit?typeCode=require"/>";
+            <%--if (data['name'] === "") {--%>
+            <%--    window.location.href = "<c:url value='/admin/customer-edit?error=name'/>";--%>
+            <%--}--%>
+            <%--if (data['customerPhone'] === "") {--%>
+            <%--    window.location.href = "<c:url value='/admin/customer-edit?error=phone'/>";--%>
+            <%--}--%>
+            if (data['fullName'] === "") {
+                //alert("Tên khách hàng là bắt buộc!");
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Lỗi',
+                  text: 'Tên là bắt buộc!',
+                });
+            }
+            if (data['customerPhone'] === "") {
+                //alert("Số điện thoại là bắt buộc!");
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Lỗi',
+                  text: 'Số điện thoại là bắt buộc!',
+                });
+
+            }
+
         }
         // call api
     });

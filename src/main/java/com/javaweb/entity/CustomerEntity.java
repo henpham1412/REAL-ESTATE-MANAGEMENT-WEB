@@ -7,9 +7,6 @@ import java.util.List;
 @Entity
 @Table(name="customer")
 public class CustomerEntity extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name="fullname")
     private String fullName;
@@ -49,16 +46,6 @@ public class CustomerEntity extends BaseEntity{
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFullName() {

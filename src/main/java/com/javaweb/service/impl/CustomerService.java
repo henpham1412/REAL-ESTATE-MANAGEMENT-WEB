@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.CustomerConverter;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,4 +67,26 @@ public class CustomerService implements ICustomerService {
         Page<CustomerSearchResponse> customerSearchResponsePage = customerEntities.map(entity -> customerConverter.convertEntityToResponse(entity));
         return customerSearchResponsePage;
     }
+
+    @Override
+    @Transactional
+    public void addOrUpdateCustomer(CustomerDTO customerDTO) {
+        CustomerEntity customerEntity = customerConverter.convertDTOToEntity(customerDTO);
+        customerRepository.save(customerEntity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomer(List<Long> ids) {
+        customerRepository.deleteByIdIn(ids);
+    }
+
+    @Override
+    public CustomerDTO getCustomer(Long id) {
+        CustomerEntity customerEntity = customerRepository.findById(id).get();
+        CustomerDTO customerDTO = customerConverter.convertEntityToDTO(customerEntity);
+        return customerDTO;
+    }
+
+
 }

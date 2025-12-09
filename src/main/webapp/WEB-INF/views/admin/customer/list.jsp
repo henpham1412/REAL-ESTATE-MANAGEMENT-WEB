@@ -8,6 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="customerListURL" value="/admin/customer-list"/>
+<c:url var="customerAPI" value="/api/customer"/>
 <script>
     var customerListUrl = "${pageContext.request.contextPath}/admin/customer-list";
 </script>
@@ -37,7 +39,7 @@
 
 <%--                <div class="page-header">--%>
 <%--                    <h1>--%>
-<%--                        Danh sách tòa nhà--%>
+<%--                        Danh sách tòa --%>
 <%--                        <small>--%>
 <%--                            <i class="ace-icon fa fa-angle-double-right"></i>--%>
 <%--                            overview &amp; stats--%>
@@ -119,7 +121,7 @@
                             <security:authorize access="hasRole('MANAGER')">
                                 <a href="/admin/customer-edit">
 
-                                    <button class="btn btn-info" title="Thêm tòa nhà">
+                                    <button class="btn btn-info" title="Thêm khách hàng">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
                                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
                                             <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
@@ -130,7 +132,7 @@
                                 </a>
                                  </security:authorize>
                                 <security:authorize access="hasRole('MANAGER')">
-                                <button class="btn btn-danger" title="Xóa tòa nhà" id="btnDeleteBuilding">
+                                <button class="btn btn-danger" title="Xóa khách hàng" id="btnDeleteCustomer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
                                         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"/>
                                         <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
@@ -180,20 +182,20 @@
                                 <td>${item.phone}</td>
                                 <td>${item.email}</td>
                                 <td>${item.companyName}</td>
-                                <td></td>
-                                <td></td>
+                                <td>${item.createdDate}</td>
+                                <td>${item.createdBy}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs btn-group">
                                     <security:authorize access="hasRole('MANAGER')">
-                                        <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentCustomer(${item.id})">
+                                        <button class="btn btn-xs btn-success" title="Giao khách hàng" onclick="assignmentCustomer(${item.id})">
                                             <i class="ace-icon glyphicon glyphicon-list"></i>
                                         </button>
                                     </security:authorize>
-                                        <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">
+                                        <a class="btn btn-xs btn-info" title="Sửa khách hàng" href="/admin/customer-edit-${item.id}">
                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                         </a>
                                         <security:authorize access="hasRole('MANAGER')">
-                                            <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">
+                                            <button class="btn btn-xs btn-danger" title="Xóa khách hàng" onclick="deleteCustomer(${item.id})">
                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                             </button>
                                         </security:authorize>
@@ -318,7 +320,7 @@
 					<input type="hidden" id="customerId" name="customerId" value="">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="btnassignmentCustomer">Giao tòa nhà</button>
+					<button type="button" class="btn btn-default" id="btnassignmentCustomer">Giao khách hàng</button>
 				  <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
 				</div>
 			  </div>
@@ -362,7 +364,52 @@
         });
     }
 
+    function deleteCustomer(id) {
+      var customerId = [id];
+      deleteCustomers(customerId);
+    };
 
+    function deleteCustomers(data) {
+        $.ajax({
+            type: "Delete",
+            url: "${customerAPI}/" + data,
+            // data: JSON.stringify(data),
+            // contentType:"application/json",
+            //dataType: "JSON",
+            dataType: "text",
+            success: function(respond) {
+                console.log("success");
+                window.location.href = "/admin/customer-list?message=success";
+            },
+            error: function(respond) {
+                console.log("failed");
+                console.log(respond);
+                window.location.href = "/admin/customer-list?message=error";
+            }
+        });
+    }
+
+    $('#btnDeleteCustomer').click(function(e){
+        e.preventDefault();
+        var customerIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function(){
+            return $(this).val();
+        }).get();
+        console.log("Các ID được chọn:", customerIds);
+        deleteCustomers(customerIds);
+    });
+    // control checkbox
+    // checkbox master ở thead
+    $('#tableList thead input[type="checkbox"]').on('change', function() {
+        var checked = $(this).prop('checked');
+        // tất cả checkbox trong tbody sẽ theo trạng thái của master
+        $('#tableList tbody input[type="checkbox"]').prop('checked', checked);
+    });
+
+    $('#tableList tbody input[type="checkbox"]').on('change', function() {
+        var allChecked = $('#tableList tbody input[type="checkbox"]').length ===
+                         $('#tableList tbody input[type="checkbox"]:checked').length;
+        $('#tableList thead input[type="checkbox"]').prop('checked', allChecked);
+    });
 
 </script>
 

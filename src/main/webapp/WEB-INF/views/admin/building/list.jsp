@@ -545,6 +545,20 @@
             }
         });
     }
+
+    // control checkbox
+    // checkbox master ở thead
+    $('#tableList thead input[type="checkbox"]').on('change', function() {
+        var checked = $(this).prop('checked');
+        // tất cả checkbox trong tbody sẽ theo trạng thái của master
+        $('#tableList tbody input[type="checkbox"]').prop('checked', checked);
+    });
+
+    $('#tableList tbody input[type="checkbox"]').on('change', function() {
+        var allChecked = $('#tableList tbody input[type="checkbox"]').length ===
+                         $('#tableList tbody input[type="checkbox"]:checked').length;
+        $('#tableList thead input[type="checkbox"]').prop('checked', allChecked);
+    });
 </script>
 
 </body>

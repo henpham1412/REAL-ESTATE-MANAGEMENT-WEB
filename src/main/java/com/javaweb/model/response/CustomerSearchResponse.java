@@ -1,6 +1,7 @@
 package com.javaweb.model.response;
 
 import javax.persistence.Column;
+import java.util.Date;
 
 public class CustomerSearchResponse {
     private Long id;
@@ -20,6 +21,9 @@ public class CustomerSearchResponse {
 //    private String adder;
 //
 //    private String date;
+    private Date createdDate;
+
+    private String createdBy;
 
     public String getPhone() {
         return phone;
@@ -69,7 +73,23 @@ public class CustomerSearchResponse {
         this.status = status;
     }
 
-//    public String getAdder() {
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    //    public String getAdder() {
 //        return adder;
 //    }
 //

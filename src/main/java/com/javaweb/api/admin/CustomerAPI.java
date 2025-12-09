@@ -6,6 +6,8 @@ import com.javaweb.service.impl.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController(value="customerAPIOfAdmin")
 @RequestMapping("/api/customer")
 public class CustomerAPI {
@@ -20,6 +22,11 @@ public class CustomerAPI {
 
     @PostMapping
     public void addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO) {
-        System.out.println("ok");
+        customerService.addOrUpdateCustomer(customerDTO);
+    }
+
+    @DeleteMapping("/{ids}")
+    public void deleteCustomer(@PathVariable List<Long> ids) {
+        customerService.deleteCustomer(ids);
     }
 }
