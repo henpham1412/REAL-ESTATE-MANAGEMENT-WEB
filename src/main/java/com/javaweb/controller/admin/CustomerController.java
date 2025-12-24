@@ -1,10 +1,12 @@
 package com.javaweb.controller.admin;
 
+import com.javaweb.enums.TransactionType;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.repository.CustomerRepository;
 import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.impl.CustomerService;
+import com.javaweb.service.impl.TransactionService;
 import com.javaweb.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +28,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @RequestMapping(value="/admin/customer-list", method = RequestMethod.GET)
     public ModelAndView customerList(@ModelAttribute("customerSearch") CustomerSearchRequest  customerSearchRequest,
@@ -56,6 +61,9 @@ public class CustomerController {
     public ModelAndView customerEdit(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("admin/customer/edit");
         modelAndView.addObject("customerEdit", customerService.getCustomer(id));
+        modelAndView.addObject("transactionType", TransactionType.getTypeMap());
+        modelAndView.addObject("listCSKH", transactionService.getListTransactionDTO("CSKH", id));
+        modelAndView.addObject("listDDX", transactionService.getListTransactionDTO("DDX", id));
         return modelAndView;
     }
 }
