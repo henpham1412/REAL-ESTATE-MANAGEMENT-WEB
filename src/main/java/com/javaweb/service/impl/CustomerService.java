@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.CustomerConverter;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.CustomerSearchResponse;
@@ -86,6 +87,22 @@ public class CustomerService implements ICustomerService {
         CustomerEntity customerEntity = customerRepository.findById(id).get();
         CustomerDTO customerDTO = customerConverter.convertEntityToDTO(customerEntity);
         return customerDTO;
+    }
+
+    @Override
+    @Transactional
+    public void assignCustomer(AssignmentCustomerDTO assignmentCustomerDTO) {
+        CustomerEntity customerEntity = customerRepository.findById(assignmentCustomerDTO.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        List<UserEntity> userEntities = userRepository.findAllById(assignmentCustomerDTO.getStaffs());
+
+        if (customerEntity.getUserEntities() == null) {
+            customerEntity.setUserEntities(new ArrayList<>());
+        }
+
+        customerEntity.getUserEntities().clear();
+        customerEntity.getUserEntities().addAll(userEntities);
+        customerRepository.save(customerEntity);
     }
 
 

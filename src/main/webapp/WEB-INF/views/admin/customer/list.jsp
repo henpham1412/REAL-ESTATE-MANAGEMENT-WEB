@@ -411,6 +411,42 @@
         $('#tableList thead input[type="checkbox"]').prop('checked', allChecked);
     });
 
+    $('#btnassignmentCustomer').click(function(e){
+        e.preventDefault();
+        var data = {};
+        data['customerId'] = $('#customerId').val();
+        var staffs = $('#stafflist').find('tbody input[type = checkbox]:checked').map(function(){
+            return $(this).val();
+        }).get();
+        data['staffs'] = staffs;
+        if (customerId !== "" && customerId !== undefined) {
+            assign(data);
+        } else {
+            Swal.fire('Lỗi', 'Không tìm thấy ID khách hàng!', 'error');
+        }
+
+        console.log("Dữ liệu gửi đi:", data);
+    });
+    function assign(data) {
+        $.ajax({
+            url: "/api/customer/" + 'assignment',
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType:"application/json",
+            dataType: "JSON",
+            success: function(response) {
+                console.info("success");
+                alert("thành công");
+                window.location.href = "/admin/customer-list?message=success";
+            },
+            error: function(response) {
+                console.log("failed");
+                alert("thất bại");
+                window.location.href = "/admin/customer-list?message=error";
+                console.log(response);
+            }
+        });
+    }
 </script>
 
 </body>

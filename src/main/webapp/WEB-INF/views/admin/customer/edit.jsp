@@ -22,11 +22,18 @@
                 </script>
 
                 <ul class="breadcrumb">
-                    <li>
-                        <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
-                    </li>
-                    <li class="active">Dashboard</li>
+<%--                    <li>--%>
+<%--                        <i class="ace-icon fa fa-home home-icon"></i>--%>
+<%--                        <a href="#">Home</a>--%>
+<%--                    </li>--%>
+                    <c:if test = "${not empty customerEdit.id}">
+                        <li class="active">Chỉnh sửa khách hàng</li>
+                    </c:if>
+
+                    <c:if test = "${empty customerEdit.id}">
+                        <li class="active">Thêm khách hàng</li>
+                    </c:if>
+
                 </ul><!-- /.breadcrumb -->
 
             </div>

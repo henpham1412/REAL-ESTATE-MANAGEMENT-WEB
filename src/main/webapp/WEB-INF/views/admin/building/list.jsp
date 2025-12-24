@@ -485,10 +485,13 @@
             return $(this).val();
         }).get();
         data['staffs'] = staffs;
-        if (data['staffs'] != '') {
+        if (buildingId !== "" && buildingId !== undefined) {
             assign(data);
+        } else {
+            Swal.fire('Lỗi', 'Không tìm thấy ID tòa nhà!', 'error');
         }
-        console.log("OK");
+
+        console.log("Dữ liệu gửi đi:", data);
     });
     function assign(data) {
         $.ajax({

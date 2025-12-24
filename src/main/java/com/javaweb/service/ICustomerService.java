@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.request.CustomerSearchRequest;
@@ -19,4 +20,5 @@ public interface ICustomerService {
     void addOrUpdateCustomer(CustomerDTO customerDTO);
     void deleteCustomer(List<Long> ids);
     CustomerDTO getCustomer(Long id);
+    void assignCustomer(AssignmentCustomerDTO assignmentCustomerDTO);
 }
