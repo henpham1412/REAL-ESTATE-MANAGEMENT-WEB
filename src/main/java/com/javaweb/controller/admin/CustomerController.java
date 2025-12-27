@@ -20,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller(value="customerControllerOfAdmin")
 public class CustomerController {
 
@@ -53,17 +56,27 @@ public class CustomerController {
     @RequestMapping(value = "/admin/customer-edit", method = RequestMethod.GET)
     public ModelAndView customerEdit(@ModelAttribute CustomerDTO customerDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("admin/customer/edit");
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("CHUA_XU_LY", "Chưa xử lý");
+        statusMap.put("DANG_XU_LY", "Đang xử lý");
+        statusMap.put("DA_XU_LY", "Đã xử lý");
         modelAndView.addObject("customerEdit", customerDTO);
+        modelAndView.addObject("statusMap", statusMap);
         return modelAndView;
     }
 
     @RequestMapping(value = "/admin/customer-edit-{id}", method = RequestMethod.GET)
     public ModelAndView customerEdit(@PathVariable long id, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("admin/customer/edit");
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("CHUA_XU_LY", "Chưa xử lý");
+        statusMap.put("DANG_XU_LY", "Đang xử lý");
+        statusMap.put("DA_XU_LY", "Đã xử lý");
         modelAndView.addObject("customerEdit", customerService.getCustomer(id));
         modelAndView.addObject("transactionType", TransactionType.getTypeMap());
         modelAndView.addObject("listCSKH", transactionService.getListTransactionDTO("CSKH", id));
         modelAndView.addObject("listDDX", transactionService.getListTransactionDTO("DDX", id));
+        modelAndView.addObject("statusMap", statusMap);
         return modelAndView;
     }
 }

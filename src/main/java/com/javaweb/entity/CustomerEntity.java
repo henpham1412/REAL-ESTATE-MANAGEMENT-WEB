@@ -1,5 +1,7 @@
 package com.javaweb.entity;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ public class CustomerEntity extends BaseEntity{
     @Column(name="status")
     private String status;
 
+    @Column(name="is_active")
+    private Integer isActive = 1;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="assignmentcustomer",
             joinColumns = @JoinColumn(name="customerid", nullable = false),
@@ -36,6 +41,14 @@ public class CustomerEntity extends BaseEntity{
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
             orphanRemoval = true)
     private List<TransactionEntity> transactionEntities = new ArrayList<>();
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
+    }
 
     public List<TransactionEntity> getTransactionEntities() {
         return transactionEntities;

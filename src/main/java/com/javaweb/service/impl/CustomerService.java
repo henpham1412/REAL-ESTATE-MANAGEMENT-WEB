@@ -66,20 +66,42 @@ public class CustomerService implements ICustomerService {
     public Page<CustomerSearchResponse> listCustomers(CustomerSearchRequest customerSearchRequest, Pageable pageable) {
         Page<CustomerEntity> customerEntities = customerRepository.getCustomerEntities(customerSearchRequest, pageable);
         Page<CustomerSearchResponse> customerSearchResponsePage = customerEntities.map(entity -> customerConverter.convertEntityToResponse(entity));
+
         return customerSearchResponsePage;
     }
 
     @Override
     @Transactional
     public void addOrUpdateCustomer(CustomerDTO customerDTO) {
-        CustomerEntity customerEntity = customerConverter.convertDTOToEntity(customerDTO);
+        CustomerEntity customerEntity;
+
+        if (customerDTO.getId() != null) {
+
+            customerEntity = customerRepository.findById(customerDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+            customerEntity.setFullName(customerDTO.getFullName());
+            customerEntity.setPhone(customerDTO.getCustomerPhone());
+            customerEntity.setEmail(customerDTO.getEmail());
+            customerEntity.setCompanyName(customerDTO.getCompanyName());
+            customerEntity.setDemand(customerDTO.getDemand());
+            customerEntity.setStatus(customerDTO.getStatus());
+
+        } else {
+            customerEntity = customerConverter.convertDTOToEntity(customerDTO);
+            customerEntity.setIsActive(1);
+        }
+
         customerRepository.save(customerEntity);
     }
 
     @Override
     @Transactional
     public void deleteCustomer(List<Long> ids) {
-        customerRepository.deleteByIdIn(ids);
+        List<CustomerEntity> customerEntities = customerRepository.findAllById(ids);
+        for (CustomerEntity customerEntity : customerEntities) {
+            customerEntity.setIsActive(0);
+        }
     }
 
     @Override

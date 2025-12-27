@@ -101,7 +101,10 @@
                                 <label class="col-xs-3">Tình trạng</label>
                                 <div class="col-xs-9">
 <%--                                    <input class="form-control" type="number" id="floorArea" name="floorArea" >--%>
-                                    <form:input class="form-control" path="status"/>
+                                    <form:select path="status" class="form-control">
+                                        <form:option value="" label="--- Chọn tình trạng ---"/>
+                                        <form:options items="${statusMap}" />
+                                    </form:select>
                                 </div>
                             </div>
 
@@ -161,7 +164,7 @@
                                 <td>${item.modifiedDate}</td>
                                 <td>${item.note}</td>
                                 <td>
-                                    <button title="Sửa giao dịch" class="btn btn-xs btn-info" data-toggle="tooltip" onclick="updateTransaction(${item.id})">
+                                    <button title="Sửa giao dịch" class="btn btn-xs btn-info" data-toggle="tooltip" onclick="updateTransaction(${item.id}, '${item.note}')">
                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </button>
                                 </td>
@@ -198,7 +201,7 @@
                                 <td>${item.modifiedDate}</td>
                                 <td>${item.note}</td>
                                 <td>
-                                    <button title="Sửa giao dịch" class="btn btn-xs btn-info" data-toggle="tooltip" onclick="updateTransaction(${item.id})">
+                                    <button title="Sửa giao dịch" class="btn btn-xs btn-info" data-toggle="tooltip" onclick="updateTransaction(${item.id}, '${item.note}')">
                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </button>
 
@@ -226,27 +229,16 @@
 				  <h4 class="modal-title">Nhập giao dịch</h4>
 				</div>
 				<div class="modal-body">
-					<table style="margin: 3em 0 0;" class="table table-striped table-bordered table-hover" id="stafflist">
-						<thead>
-							<tr>
-							    <div class="form-group">
-                                  <label class="col-xs-3 control-label">Chi tiết giao dịch</label>
-                                  <div class="col-xs-9">
-                                    <input type="text" class="form-control" id="transactionDetail" value="">
-                                  </div>
-                                </div>
+                    <div class="form-group row"> <label class="col-xs-3 control-label no-padding-right">Chi tiết giao dịch</label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="transactionDetail" value="">
+                        </div>
+                    </div>
 
-
-							</tr>
-						</thead>
-
-						<tbody>
-						</tbody>
-					</table>
-					<input type="hidden" id="customerId" name="customerId" value="">
-					<input type="hidden" id="key" name="key" value="">
-					<input type="hidden" id="id" name="id" value="">
-				</div>
+                    <input type="hidden" id="customerId" value="">
+                    <input type="hidden" id="key" value="">
+                    <input type="hidden" id="id" value="">
+                </div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" id="btnAddOrUppdateTransaction">Thêm giao dịch</button>
 				  <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
@@ -330,7 +322,8 @@
         $('#editTransaction').modal();
     };
 
-    function updateTransaction(id){
+    function updateTransaction(id, note){
+        $('#transactionDetail').val(note);
         $('#editTransaction').modal();
         $('#btnAddOrUppdateTransaction').text("Sửa giao dịch");
         $('#id').val(id);

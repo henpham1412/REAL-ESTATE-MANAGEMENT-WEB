@@ -210,68 +210,96 @@
                     </div><!-- /.span -->
                 </div>
                 <c:if test="${customerPage.totalPages > 0}">
-            <ul class="pagination">
-                <%-- Nút Lùi (Previous) --%>
-                <c:choose>
-                    <c:when test="${customerPage.first}">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <c:url var="prevPageUrl" value="/admin/customer-list">
-                            <c:param name="page" value="${customerPage.number - 1}"/>
-                            <c:param name="size" value="${customerPage.size}"/>
-                            <%-- Thêm TẤT CẢ filter param vào đây --%>
-                            <c:param name="name" value="${customerSearch.name}"/>
-                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
-                            <c:param name="managerPhone" value="${customerSearch.email}"/>
-                            <c:param name="staffId" value="${customerSearch.staffId}"/>
-                            <%-- SỬA LẠI TYPECODE: Dùng vòng lặp --%>
-                        </c:url>
-                        <li class="page-item"><a class="page-link" href="${prevPageUrl}">Previous</a></li>
-                    </c:otherwise>
-                </c:choose>
+<%--            <ul class="pagination">--%>
+<%--                &lt;%&ndash; Nút Lùi (Previous) &ndash;%&gt;--%>
+<%--                <c:choose>--%>
+<%--                    <c:when test="${customerPage.first}">--%>
+<%--                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>--%>
+<%--                    </c:when>--%>
+<%--                    <c:otherwise>--%>
+<%--                        <c:url var="prevPageUrl" value="/admin/customer-list">--%>
+<%--                            <c:param name="page" value="${customerPage.number - 1}"/>--%>
+<%--                            <c:param name="size" value="${customerPage.size}"/>--%>
+<%--                            &lt;%&ndash; Thêm TẤT CẢ filter param vào đây &ndash;%&gt;--%>
+<%--                            <c:param name="name" value="${customerSearch.name}"/>--%>
+<%--                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>--%>
+<%--                            <c:param name="managerPhone" value="${customerSearch.email}"/>--%>
+<%--                            <c:param name="staffId" value="${customerSearch.staffId}"/>--%>
+<%--                            &lt;%&ndash; SỬA LẠI TYPECODE: Dùng vòng lặp &ndash;%&gt;--%>
+<%--                        </c:url>--%>
+<%--                        <li class="page-item"><a class="page-link" href="${prevPageUrl}">Previous</a></li>--%>
+<%--                    </c:otherwise>--%>
+<%--                </c:choose>--%>
 
-                <%-- Các nút số trang --%>
-                <c:forEach var="i" begin="0" end="${customerPage.totalPages - 1}">
-                    <c:url var="pageUrl" value="/admin/customer-list">
-                        <c:param name="page" value="${i}"/>
-                        <c:param name="size" value="${customerPage.size}"/>
-                        <%-- Tất cả các filter param (giống hệt ở trên) --%>
-                        <c:param name="name" value="${customerSearch.name}"/>
-                        <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
-                        <c:param name="managerPhone" value="${customerSearch.email}"/>
-                        <c:param name="staffId" value="${customerSearch.staffId}"/>
-                    </c:url>
+<%--                &lt;%&ndash; Các nút số trang &ndash;%&gt;--%>
+<%--                <c:forEach var="i" begin="0" end="${customerPage.totalPages - 1}">--%>
+<%--                    <c:url var="pageUrl" value="/admin/customer-list">--%>
+<%--                        <c:param name="page" value="${i}"/>--%>
+<%--                        <c:param name="size" value="${customerPage.size}"/>--%>
+<%--                        &lt;%&ndash; Tất cả các filter param (giống hệt ở trên) &ndash;%&gt;--%>
+<%--                        <c:param name="name" value="${customerSearch.name}"/>--%>
+<%--                        <c:param name="managerName" value="${customerSearch.phoneNumber}"/>--%>
+<%--                        <c:param name="managerPhone" value="${customerSearch.email}"/>--%>
+<%--                        <c:param name="staffId" value="${customerSearch.staffId}"/>--%>
+<%--                    </c:url>--%>
 
-                    <c:choose>
-                        <c:when test="${i == customerPage.number}">
-                            <li class="page-item active"><a class="page-link" href="${pageUrl}">${i + 1}</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link" href="${pageUrl}">${i + 1}</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${i == customerPage.number}">--%>
+<%--                            <li class="page-item active"><a class="page-link" href="${pageUrl}">${i + 1}</a></li>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <li class="page-item"><a class="page-link" href="${pageUrl}">${i + 1}</a></li>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+<%--                </c:forEach>--%>
 
-                <%-- Nút Tới (Next) --%>
-                <c:choose>
-                    <c:when test="${customerPage.last}">
-                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <c:url var="nextPageUrl" value="/admin/customer-list">
-                            <c:param name="page" value="${customerPage.number + 1}"/>
-                            <c:param name="size" value="${customerPage.size}"/>
-                            <%-- Tất cả các filter param (giống hệt ở trên) --%>
-                            <c:param name="name" value="${customerSearch.name}"/>
-                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>
-                            <c:param name="managerPhone" value="${customerSearch.email}"/>
-                            <c:param name="staffId" value="${customerSearch.staffId}"/>
-                        </c:url>
-                        <li class="page-item"><a class="page-link" href="${nextPageUrl}">Next</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+<%--                &lt;%&ndash; Nút Tới (Next) &ndash;%&gt;--%>
+<%--                <c:choose>--%>
+<%--                    <c:when test="${customerPage.last}">--%>
+<%--                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>--%>
+<%--                    </c:when>--%>
+<%--                    <c:otherwise>--%>
+<%--                        <c:url var="nextPageUrl" value="/admin/customer-list">--%>
+<%--                            <c:param name="page" value="${customerPage.number + 1}"/>--%>
+<%--                            <c:param name="size" value="${customerPage.size}"/>--%>
+<%--                            &lt;%&ndash; Tất cả các filter param (giống hệt ở trên) &ndash;%&gt;--%>
+<%--                            <c:param name="name" value="${customerSearch.name}"/>--%>
+<%--                            <c:param name="managerName" value="${customerSearch.phoneNumber}"/>--%>
+<%--                            <c:param name="managerPhone" value="${customerSearch.email}"/>--%>
+<%--                            <c:param name="staffId" value="${customerSearch.staffId}"/>--%>
+<%--                        </c:url>--%>
+<%--                        <li class="page-item"><a class="page-link" href="${nextPageUrl}">Next</a></li>--%>
+<%--                    </c:otherwise>--%>
+<%--                </c:choose>--%>
+<%--            </ul>--%>
+                <form action="/admin/customer-list" id="formSubmit" method="GET">
+                    <%-- Chuyển sang hidden để người dùng không nhìn thấy, nhưng dữ liệu vẫn được gửi đi --%>
+                    <input type="hidden" name="fullName" value="${customerSearch.name}">
+                    <input type="hidden" name="phone" value="${customerSearch.phoneNumber}">
+
+                    <input type="hidden" id="page" name="page" value="">
+                    <input type="hidden" id="size" name="size" value="3">
+
+                    <%-- XÓA BỎ NÚT BUTTON Ở ĐÂY --%>
+                </form>
+                <ul class="pagination">
+                    <%-- Nút Lùi --%>
+                    <li class="page-item ${customerPage.first ? 'disabled' : ''}">
+                        <a class="page-link" href="javascript:void(0)" onclick="gotoPage(${customerPage.number - 1})">Previous</a>
+                    </li>
+
+                    <%-- Các nút số trang --%>
+                    <c:forEach var="i" begin="0" end="${customerPage.totalPages - 1}">
+                        <li class="page-item ${i == customerPage.number ? 'active' : ''}">
+                            <a class="page-link" href="javascript:void(0)" onclick="gotoPage(${i})">${i + 1}</a>
+                        </li>
+                    </c:forEach>
+
+                    <%-- Nút Tới --%>
+                    <li class="page-item ${customerPage.last ? 'disabled' : ''}">
+                        <a class="page-link" href="javascript:void(0)" onclick="gotoPage(${customerPage.number + 1})">Next</a>
+                    </li>
+                </ul>
         </c:if>
 
             </div><!-- /.page-content -->
@@ -446,6 +474,15 @@
                 console.log(response);
             }
         });
+    }
+
+    function gotoPage(pageNumber) {
+        // 1. Gán số trang muốn tới vào ô hidden input
+        $('#page').val(pageNumber);
+
+        // 2. Submit cái form tìm kiếm
+        // Vì là submit form nên tất cả filter (tên, SĐT...) sẽ tự động được gửi đi theo
+        $('#formSubmit').submit();
     }
 </script>
 
