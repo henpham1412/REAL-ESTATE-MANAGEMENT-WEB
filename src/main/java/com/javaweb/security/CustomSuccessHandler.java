@@ -1,13 +1,17 @@
 package com.javaweb.security;
 
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.model.dto.MyUserDetail;
+import com.javaweb.security.utils.JwtTokenUtil;
 import com.javaweb.security.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,6 +22,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
@@ -26,6 +33,23 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             System.out.println("Can't redirect");
             return;
         }
+        MyUserDetail userDetail = (MyUserDetail) authentication.getPrincipal();
+        String token = null;
+        try {
+            token = jwtTokenUtil.generateToken(userDetail);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        Cookie jwtCookie = new Cookie("JWT", token);
+        jwtCookie.setHttpOnly(true); // Bảo mật: Không cho JavaScript truy cập Cookie này (chống XSS)
+        jwtCookie.setPath("/");      // Cookie có hiệu lực cho toàn bộ website
+        jwtCookie.setMaxAge(2592000); // Thời gian sống (30 ngày), khớp với expiration của Token
+
+        response.addCookie(jwtCookie);
+        System.out.println("Login thành công cho user: " + userDetail.getUsername());
+        System.out.println("Token tạo ra: " + token);
+        System.out.println("Redirect về: " + targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
