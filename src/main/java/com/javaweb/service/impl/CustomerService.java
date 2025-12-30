@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class CustomerService implements ICustomerService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @Override
     public ResponseDTO loadStaffs(Long id) {
@@ -125,6 +129,11 @@ public class CustomerService implements ICustomerService {
         customerEntity.getUserEntities().clear();
         customerEntity.getUserEntities().addAll(userEntities);
         customerRepository.save(customerEntity);
+
+        for (UserEntity staff: userEntities) {
+            String message = "Bạn vừa được giao quản lí khách hàng: " + customerEntity.getFullName();
+            messagingTemplate.convertAndSendToUser(staff.getUserName(), "/queue/notifications", message);
+        }
     }
 
 

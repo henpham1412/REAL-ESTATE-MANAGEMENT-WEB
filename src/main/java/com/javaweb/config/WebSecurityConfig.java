@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public FilterRegistrationBean<JwtTokenFilter> jwtFilterRegistration(JwtTokenFilter filter) {
         FilterRegistrationBean<JwtTokenFilter> registration = new FilterRegistrationBean<>(filter);
         registration.setEnabled(false);
+        registration.setAsyncSupported(true);
         return registration;
     }
 
@@ -96,10 +97,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         encodingFilter.setForceEncoding(true);
         http.addFilterBefore(encodingFilter, org.springframework.security.web.authentication.logout.LogoutFilter.class);
         http.csrf().disable()
+                .headers().frameOptions().sameOrigin()
+                .and()
                 // 2. SỬA LỖI ĐĂNG NHẬP: Thêm JWT Filter trước UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
+
+                .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/api/test-broadcast").permitAll()
                 // Cho phép tất cả tài nguyên và trang công khai
                 .antMatchers("/", "/trang-chu", "/login", "/registers",
                         "/san-pham", "/gioi-thieu", "/tin-tuc", "/lien-he").permitAll()

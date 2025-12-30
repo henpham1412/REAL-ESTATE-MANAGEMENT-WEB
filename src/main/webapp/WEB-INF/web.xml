@@ -9,6 +9,7 @@
     <filter>
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+        <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
@@ -28,6 +29,7 @@
     <servlet>
         <servlet-name>DisplayImage</servlet-name>
         <servlet-class>com.javaweb.utils.ReadFileUtils</servlet-class>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>DisplayImage</servlet-name>

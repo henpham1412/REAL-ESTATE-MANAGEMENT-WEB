@@ -18,6 +18,7 @@ import com.javaweb.service.IBuildingService;
 import com.javaweb.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -45,6 +46,9 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private RentAreaService rentAreaService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
 
     public static final String UPLOAD_DIRECTORY = "D:/spring/Project-spring-boot-web/images";
@@ -197,5 +201,9 @@ public class BuildingService implements IBuildingService {
         buildingEntity.getUserEntities().clear();
         buildingEntity.getUserEntities().addAll(listStaffs);
         buildingRepository.save(buildingEntity);
+        for (UserEntity staff: listStaffs) {
+            String message = "Bạn vừa được giao quản lí tòa nhà: " + buildingEntity.getName();
+            messagingTemplate.convertAndSendToUser(staff.getUserName(), "/queue/notifications", message);
+        }
     }
 }

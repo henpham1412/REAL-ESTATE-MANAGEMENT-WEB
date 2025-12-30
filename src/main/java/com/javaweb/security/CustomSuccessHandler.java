@@ -40,6 +40,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        //request.getSession().setAttribute("JWT_TOKEN", token);
 
         Cookie jwtCookie = new Cookie("JWT", token);
         jwtCookie.setHttpOnly(true); // Bảo mật: Không cho JavaScript truy cập Cookie này (chống XSS)
