@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.BuildingConverter;
 
 import com.javaweb.entity.BuildingEntity;
+import com.javaweb.entity.NotificationEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
@@ -12,6 +13,7 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.NotificationRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
@@ -49,6 +51,9 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     public static final String UPLOAD_DIRECTORY = "D:/spring/Project-spring-boot-web/images";
@@ -203,6 +208,14 @@ public class BuildingService implements IBuildingService {
         buildingRepository.save(buildingEntity);
         for (UserEntity staff: listStaffs) {
             String message = "Bạn vừa được giao quản lí tòa nhà: " + buildingEntity.getName();
+            String directLink = "/admin/building-edit-" + buildingEntity.getId();
+
+            NotificationEntity notification = new NotificationEntity();
+            notification.setContent(message);
+            notification.setUser(staff);
+            notification.setStatus(0L);
+            notification.setLink(directLink);
+            notificationRepository.save(notification);
             messagingTemplate.convertAndSendToUser(staff.getUserName(), "/queue/notifications", message);
         }
     }

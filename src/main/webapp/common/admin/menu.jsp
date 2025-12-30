@@ -62,6 +62,7 @@
 <%--    </li>--%>
 <%--</ul>--%>
     <ul class="nav nav-list">
+
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fas fa-users"></i>

@@ -36,7 +36,83 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="<c:url value='/js/global-notifications.js' />"></script>
 <script type="text/javascript">
+    function loadNotifications() {
+        $.ajax({
+            url: '/api/notifications',
+            type: 'GET',
+            success: function(data) {
+                updateNotificationUI(data.notifications, data.unreadCount);
+            },
+            error: function(err) {
+                console.error("Không thể lấy thông báo", err);
+            }
+        });
+    }
 
+    function updateNotificationUI(notifications, unreadCount) {
+        const badge = $('#notification-badge');
+        const headerCount = $('#notification-header-count');
+
+        if (unreadCount > 0) {
+            badge.text(unreadCount).show();
+            headerCount.text(unreadCount);
+        } else {
+            badge.hide();
+            headerCount.text(0);
+        }
+
+        var html = '';
+        if (notifications.length === 0) {
+            html = '<li><a href="#" class="clearfix text-center">Không có thông báo mới</a></li>';
+        } else {
+            notifications.forEach(function(item) {
+                var unreadClass = (item.status === 0) ? 'unread-item' : '';
+                // Cộng chuỗi thủ công để tránh xung đột của JSP
+                html += '<li>' +
+                    '<a href="javascript:void(0);" class="clearfix ' + unreadClass + '" onclick="handleNotificationClick(' + item.id + ', \'' + item.link + '\')">' +
+                    '<div class="msg-body">' +
+                    '<span class="msg-title">' +
+                    '<span class="blue">' + item.createdBy + ': </span>' +
+                    item.content +
+                    '</span>' +
+                    '<span class="msg-time">' +
+                    '<i class="ace-icon fa fa-clock-o"></i> ' +
+                    '<span>' + item.createdDate + '</span>' +
+                    '</span>' +
+                    '</div>' +
+                    '</a>' +
+                    '</li>';
+            });
+        }
+        $('#notification-items').html(html);
+    }
+
+    function handleNotificationClick(id, link) {
+        $.ajax({
+            url: '/api/notifications/' + id + '/read',
+            type: 'PUT',
+            success: function() {
+                window.location.href = link;
+            },
+            error: function() {
+                window.location.href = link; // Vẫn chuyển trang kể cả khi lỗi API
+            }
+        });
+    }
+
+    function markAllAsReadNow() {
+        $.ajax({
+            url: '/api/notifications/read-all',
+            type: 'PUT',
+            success: function() {
+                loadNotifications(); // Load lại để mất số đỏ và đổi màu nền tin nhắn
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadNotifications();
+    });
     // gọi hàm khi load trang xong
     $(document).ready(function() {
         var tokenFromServer = "${token}";
