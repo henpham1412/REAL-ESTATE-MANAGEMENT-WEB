@@ -119,15 +119,15 @@
                     <form>
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Họ và tên">
+                                <input type="text" class="form-control" placeholder="Họ và tên" value="" id="name">
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" class="form-control" placeholder="Email" value="" id="email">
                             </div>
                         </div>
-                        <input type="text" class="form-control mt-3" placeholder="Số điện thoại">
-                        <input type="text" class="form-control mt-3" placeholder="Nội dung">
-                        <button class="btn btn-primary px-4 mt-3">
+                        <input type="text" class="form-control mt-3" placeholder="Số điện thoại" value="" id="phone">
+                        <input type="text" class="form-control mt-3" placeholder="Nội dung" value="" id="content">
+                        <button class="btn btn-primary px-4 mt-3" id="send">
                             Gửi liên hệ
                         </button>
                     </form>
@@ -235,5 +235,60 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#send').click(function(e){
+            // 1. Chặn reload trang mặc định của form
+            e.preventDefault();
+
+            var data = {};
+            data['fullName'] = $('#name').val();
+            data['email'] = $('#email').val();
+            data['customerPhone'] = $('#phone').val();
+            data['content'] = $('#content').val();
+            data['status'] = "đang xử lý";
+
+            // 2. Sửa lại tên biến validation cho khớp với data ở trên
+            if (data['fullName'] !== "" && data['customerPhone'] !== "") {
+                addOrUpdateCustomer(data);
+            } else {
+                if (data['fullName'] === "") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Tên là bắt buộc!',
+                    });
+                } else if (data['customerPhone'] === "") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Số điện thoại là bắt buộc!',
+                    });
+                }
+            }
+        });
+    });
+
+    function addOrUpdateCustomer(data) {
+        $.ajax({
+            type: "POST",
+            url: "/api/customer",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function(respond) {
+                // Sử dụng alert của trình duyệt hoặc Swal trước khi redirect
+                Swal.fire('Thành công', 'Gửi liên hệ thành công!', 'success').then(() => {
+                    window.location.href = "<c:url value='/lien-he?message=success'/>";
+                });
+            },
+            error: function(respond) {
+                console.error(respond);
+                window.location.href = "<c:url value='/lien-he?message=failed'/>";
+            }
+        });
+    };
+</script>
 </body>
 </html>

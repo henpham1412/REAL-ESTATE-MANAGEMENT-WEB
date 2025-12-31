@@ -1,0 +1,24 @@
+package com.javaweb.enums;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public enum TypeCode {
+    TANG_TRET("Tầng trệt"),
+    NGUYEN_CAN("Nguyên căn"),
+    NOI_THAT("Nội thất");
+    private final String name;
+    TypeCode(String name) {
+        this.name = name;
+    }
+
+    private static Map<String, String> typeCodeMap = new HashMap<>();
+    static {
+        for (TypeCode typeCode : TypeCode.values()) {
+            typeCodeMap.put(typeCode.name(), typeCode.name);
+        }
+    }
+    public static Map<String, String> type() {
+        return typeCodeMap;
+    }
+}
