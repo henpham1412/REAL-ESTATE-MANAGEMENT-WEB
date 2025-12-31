@@ -4,6 +4,7 @@ import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.MyUserDetail;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
@@ -20,7 +21,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtTokenUtil {
     private int expiration = 2592000;
-    private String secretKey = "TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=";
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
