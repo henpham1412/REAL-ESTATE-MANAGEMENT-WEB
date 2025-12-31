@@ -6,6 +6,7 @@
   },
   "deploy": {
     "startCommand": "java -jar target/*.war",
+    "healthCheckPath": "/admin/home",
     "restartPolicyType": "ON_FAILURE"
   }
 }
