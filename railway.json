@@ -6,7 +6,7 @@
   },
   "deploy": {
     "startCommand": "java -Dserver.port=${PORT} -jar target/spring-boot-1.0.war",
-    "healthCheckPath": "/login",
+    "healthCheckPath": "/api/public/health",
     "healthCheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE"
   }
