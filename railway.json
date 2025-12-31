@@ -1,0 +1,11 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "mvn clean install -DskipTests"
+  },
+  "deploy": {
+    "startCommand": "java -jar target/*.war",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
