@@ -2,6 +2,7 @@ package com.javaweb.service.impl;
 
 import com.javaweb.converter.CustomerConverter;
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.entity.NotificationEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
@@ -10,6 +11,7 @@ import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.CustomerRepository;
+import com.javaweb.repository.NotificationRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class CustomerService implements ICustomerService {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Override
     public ResponseDTO loadStaffs(Long id) {
@@ -132,6 +137,16 @@ public class CustomerService implements ICustomerService {
 
         for (UserEntity staff: userEntities) {
             String message = "Bạn vừa được giao quản lí khách hàng: " + customerEntity.getFullName();
+
+            String directLink = "/admin/building-edit-" + customerEntity.getId();
+
+            NotificationEntity notification = new NotificationEntity();
+            notification.setContent(message);
+            notification.setUser(staff);
+            notification.setStatus(0L);
+            notification.setLink(directLink);
+            notificationRepository.save(notification);
+
             messagingTemplate.convertAndSendToUser(staff.getUserName(), "/queue/notifications", message);
         }
     }
