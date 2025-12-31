@@ -111,11 +111,9 @@
     }
 
     $(document).ready(function() {
-        loadNotifications();
-    });
-    // gọi hàm khi load trang xong
-    $(document).ready(function() {
+        loadNotifications(); // Load thông báo cũ
+
         var tokenFromServer = "${token}";
-        connectWebSocket(tokenFromServer);
+        connectWebSocket(tokenFromServer); // Kết nối real-time
     });
 </script>

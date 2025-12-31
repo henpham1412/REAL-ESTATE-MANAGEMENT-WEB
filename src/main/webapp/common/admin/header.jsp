@@ -89,11 +89,17 @@
                 </li>
 
                 <li class="light-10">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        Xin chào, <%=SecurityUtils.getPrincipal().getFullName()%>
-                        <i class="ace-icon fa fa-caret-down"></i>
-                    </a>
-
+<%--                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">--%>
+<%--                        Xin chào, <%=SecurityUtils.getPrincipal().getFullName()%>--%>
+<%--                        <i class="ace-icon fa fa-caret-down"></i>--%>
+<%--                    </a>--%>
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            Xin chào,
+                            <security:authorize access="isAuthenticated()">
+                                <security:authentication property="principal.fullName" />
+                            </security:authorize>
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
                             <a href="/admin/profile-<%=SecurityUtils.getPrincipal().getUsername()%>">

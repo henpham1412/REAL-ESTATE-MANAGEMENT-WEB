@@ -14,66 +14,6 @@
 <body>
 <div class="page-wrapper">
     <div class="">
-        <!-- HEADER -->
-        <%--<header>--%>
-            <%--<!-- Begin menu  -->--%>
-            <%--<div class="p-4">--%>
-                <%--<div class="row navbar">--%>
-                    <%--<div class="col-12 col-md-3">--%>
-                        <%--<div class="logo">--%>
-                            <%--<a href="">--%>
-                                <%--<img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/logo.png?1676257083798"--%>
-                                     <%--alt="">--%>
-                            <%--</a>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-12 col-md-6">--%>
-                        <%--<div class="item-menu">--%>
-                            <%--<div class="nav nav1">--%>
-                                <%--<div class="nav-item p-2">--%>
-                                    <%--<a class="nav-item-link" href="">--%>
-                                        <%--<span style="color: var(--primary-color);">Trang chủ</span>--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                                <%--<div class="nav-item p-2">--%>
-                                    <%--<a href='<c:url value='/gioi-thieu'/>'>--%>
-                                        <%--<span>Giới thiệu</span>--%>
-                                        <%--&lt;%&ndash;<span style="color: var(--primary-color);">Giới thiệu</span>&ndash;%&gt;--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                                <%--<div class="nav-item p-2">--%>
-                                    <%--&lt;%&ndash;<a class="nav-item-link" href="./Duan.html">&ndash;%&gt;--%>
-                                        <%--<a href='<c:url value='/san-pham'/>'>--%>
-                                        <%--<span>Sản phẩm</span>--%>
-                                        <%--&lt;%&ndash;<span style="color: var(--primary-color);">Sản phẩm</span>&ndash;%&gt;--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                                <%--<div class="nav-item p-2">--%>
-                                    <%--&lt;%&ndash;<a class="nav-item-link" href="./TinTuc.html">&ndash;%&gt;--%>
-                                        <%--<a href='<c:url value='/tin-tuc'/>'>--%>
-                                        <%--<span>Tin tức</span>--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                                <%--<div class="nav-item p-2">--%>
-                                    <%--<a href='<c:url value='/lien-he'/>'>--%>
-                                        <%--<span>Liên hệ</span>--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="nav-login col-12 col-md-3">--%>
-                        <%--<button class="btn btn-primary px-4">--%>
-                            <%--<a style="color:#fff;" href="/login">Đăng nhập</a>--%>
-                        <%--</button>--%>
-                        <%--<button class="btn btn-primary px-4">--%>
-                            <%--Đăng ký--%>
-                        <%--</button>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<!-- End menu  -->--%>
-        <%--</header>--%>
         <!-- SLIDESHOW -->
         <div class="container-fluid">
             <div class="p-0">
@@ -1033,40 +973,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<%--<script type="text/javascript">--%>
-<%--    var stompClient = null;--%>
-<%--    var tokenFromServer = "${token}";--%>
-<%--    function connect() {--%>
-<%--        if (!tokenFromServer) {--%>
-<%--            console.log("Chưa có token, kết nối ẩn danh hoặc bỏ qua.");--%>
-<%--            // return; // Tùy bạn muốn cho khách kết nối không--%>
-<%--        }--%>
-<%--        var socket = new SockJS('/websocket');--%>
-<%--        stompClient = Stomp.over(socket);--%>
-
-<%--        stompClient.connect({'Authorization': 'Bearer ' + tokenFromServer}, function (frame) {--%>
-<%--            console.log('đã kết nối thành công: ' + frame);--%>
-<%--            stompClient.subscribe('/user/queue/notifications', function (message) {--%>
-<%--                // alert("Thông báo riêng cho bạn: " + message.body);--%>
-<%--                toastr.options = {--%>
-<%--                    "closeButton": true,--%>
-<%--                    "progressBar": true,--%>
-<%--                    "positionClass": "toast-top-right",--%>
-<%--                    "timeOut": "5000"--%>
-<%--                };--%>
-<%--                // Hiển thị thông báo dạng popup đẹp mắt--%>
-<%--                toastr.success(message.body, "Thông báo hệ thống");--%>
-<%--            });--%>
-<%--        }, function (error) {--%>
-<%--                console.log("Lỗi kết nối: " + error)--%>
-<%--            }--%>
-<%--        );--%>
-<%--    }--%>
-
-<%--    // gọi hàm khi load trang xong--%>
-<%--    $(document).ready(function () {--%>
-<%--        connect();--%>
-<%--    });--%>
 </script>
 
 </body>

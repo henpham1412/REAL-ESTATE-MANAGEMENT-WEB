@@ -7,18 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Đăng nhập</title>
 </head>
-<body>
-	<div class="container">
+<%--<body>--%>
+<%--	--%>
+<%--</body>--%>
+<div class="container">
 		<!-- <h1 class="form-heading">login Form</h1> -->
 		<div class="login-form">
 			<div class="main-div">
 				<c:if test="${param.incorrectAccount != null}">
-					<div class="alert alert-danger">	
+					<div class="alert alert-danger">
 							Username or password incorrect
 					</div>
 				</c:if>
 				<c:if test="${param.accessDenied != null}">
-					<div class="alert alert-danger">	
+					<div class="alert alert-danger">
 							You Not authorize
 					</div>
 				</c:if>
@@ -81,5 +83,6 @@
 			</div>
 		</div>
 	</div>
-</body>
+
+
 </html>
