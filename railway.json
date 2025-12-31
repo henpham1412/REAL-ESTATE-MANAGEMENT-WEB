@@ -5,8 +5,9 @@
     "buildCommand": "mvn clean install -DskipTests"
   },
   "deploy": {
-    "startCommand": "java -jar target/*.war",
-    "healthCheckPath": "/admin/home",
+    "startCommand": "java -Dserver.port=${PORT} -jar target/spring-boot-1.0.war",
+    "healthCheckPath": "/login",
+    "healthCheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE"
   }
 }

@@ -103,7 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
-
+                .antMatchers("/api/public/health").permitAll()
                 .antMatchers("/websocket/**").permitAll()
                 .antMatchers("/api/test-broadcast").permitAll()
                 // Cho phép tất cả tài nguyên và trang công khai
