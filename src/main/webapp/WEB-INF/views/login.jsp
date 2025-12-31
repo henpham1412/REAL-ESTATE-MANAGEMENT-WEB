@@ -104,55 +104,61 @@
     <script src="<c:url value='/admin/assets/js/bootstrap.min.js'/>"></script>
 </head>
 
-<body>
+<body class="bg-light">
 
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height:100vh">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-5">
 
             <c:if test="${param.incorrectAccount != null}">
-                <div class="alert alert-danger">Username or password incorrect</div>
-            </c:if>
-            <c:if test="${param.accessDenied != null}">
-                <div class="alert alert-danger">You are not authorized</div>
-            </c:if>
-            <c:if test="${param.sessionTimeout != null}">
-                <div class="alert alert-danger">Session Timeout</div>
+                <div class="alert alert-danger text-center">
+                    Username or password incorrect
+                </div>
             </c:if>
 
-            <div class="card text-white" style="border-radius:1rem; background:#35bf76">
-                <div class="card-body p-5 text-center">
+            <div class="card shadow">
+                <div class="card-header text-center" style="background:#35bf76;color:#fff">
+                    <h4 class="mb-0">LOGIN</h4>
+                    <small>Please enter your login and password</small>
+                </div>
 
-                    <h2 class="fw-bold mb-3 text-uppercase">Login</h2>
-                    <p class="text-white-50 mb-4">Please enter your login and password!</p>
+                <div class="card-body p-4">
 
                     <form action="j_spring_security_check" method="post">
 
-                        <div class="mb-3 text-start">
-                            <label class="form-label">Email</label>
-                            <input type="text" name="j_username" class="form-control" placeholder="Tên đăng nhập">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text"
+                                   name="j_username"
+                                   class="form-control"
+                                   placeholder="Tên đăng nhập">
                         </div>
 
-                        <div class="mb-3 text-start">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="j_password" class="form-control" placeholder="Mật khẩu">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password"
+                                   name="j_password"
+                                   class="form-control"
+                                   placeholder="Mật khẩu">
                         </div>
 
-                        <div class="form-check mb-3 text-start">
-                            <input class="form-check-input" type="checkbox" id="remember">
-                            <label class="form-check-label" for="remember">Remember password</label>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">
+                                Remember password
+                            </label>
                         </div>
 
-                        <button class="btn btn-primary w-100" type="submit">
+                        <button type="submit" class="btn btn-success btn-block">
                             Đăng nhập
                         </button>
 
                     </form>
 
-                    <p class="small mt-3">
-                        <a class="text-white-50" href="#">Forgot password?</a>
-                    </p>
+                </div>
 
+                <div class="card-footer text-center">
+                    <a href="#" class="small">Forgot password?</a>
                 </div>
             </div>
 
@@ -160,6 +166,5 @@
     </div>
 </div>
 
-<!-- JS -->
 </body>
 </html>
