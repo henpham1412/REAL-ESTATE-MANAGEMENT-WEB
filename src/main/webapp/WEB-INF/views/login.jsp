@@ -88,7 +88,7 @@
 <%--</html>--%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 
 <!DOCTYPE html>
@@ -96,12 +96,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="<c:url value='/admin/assets/css/bootstrap.min.css'/>">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/admin/assets/css/bootstrap.min.css">
 
-    <script src="<c:url value='/admin/assets/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/admin/assets/js/popper.min.js'/>"></script>
-    <script src="<c:url value='/admin/assets/js/bootstrap.min.js'/>"></script>
+    <script src="${pageContext.request.contextPath}/admin/assets/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -123,8 +125,7 @@
                 </div>
 
                 <div class="card-body p-4">
-
-                    <form action="j_spring_security_check" method="post">
+                    <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
 
                         <div class="form-group">
                             <label>Email</label>
@@ -154,7 +155,6 @@
                         </button>
 
                     </form>
-
                 </div>
 
                 <div class="card-footer text-center">
