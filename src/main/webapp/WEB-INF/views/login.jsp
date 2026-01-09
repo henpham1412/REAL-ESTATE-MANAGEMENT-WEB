@@ -106,11 +106,13 @@
     <script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.min.js"></script>
 </head>
 
-<body class="bg-light">
+<body class="bg-success d-flex align-items-center justify-content-center min-vh-100">
 
-<div class="container">
-    <div class="row justify-content-center align-items-center" style="min-height:100vh">
-        <div class="col-md-5">
+<div class="login-wrapper w-100">
+
+    <div class="card shadow-lg mx-auto" style="max-width: 420px; border-radius: 10px;">
+        <div class="card-header text-center"
+             style="background:#35bf76;color:#fff;border-radius:10px 10px 0 0">
 
             <c:if test="${param.incorrectAccount != null}">
                 <div class="alert alert-danger text-center">
