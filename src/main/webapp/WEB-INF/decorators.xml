@@ -31,16 +31,11 @@
 <decorators defaultdir="/decorators">
 
     <excludes>
-        <pattern>/assets/*</pattern>
-        <pattern>/js/*</pattern>
-        <pattern>/img/*</pattern>
-        <pattern>/api*</pattern>
-        <pattern>/logout</pattern>
+        <pattern>/login*</pattern>
+        <pattern>/register*</pattern>
+        <pattern>/j_spring_security_check</pattern>
+        <pattern>/admin/assets/*</pattern>
     </excludes>
-
-    <decorator name="login" page="login.jsp">
-        <pattern>/login</pattern>
-    </decorator>
 
     <decorator name="admin" page="admin.jsp">
         <pattern>/admin*</pattern>
@@ -48,6 +43,7 @@
 
     <decorator name="web" page="web.jsp">
         <pattern>/</pattern>
+        <pattern>/trang-chu*</pattern>
         <pattern>/home*</pattern>
     </decorator>
 

@@ -94,25 +94,110 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,.15);
+            overflow: hidden;
+            animation: fadeUp .4s ease;
+        }
+
+        .login-card .card-header {
+            background: #2ecc71;
+            padding: 22px;
+        }
+
+        .login-card h4 {
+            margin-bottom: 4px;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        .login-card small {
+            opacity: .9;
+        }
+
+        .login-card .card-body {
+            padding: 28px;
+        }
+
+        .login-card label {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .login-card .form-control {
+            border-radius: 8px;
+            height: 42px;
+        }
+
+        .login-card .btn-success {
+            border-radius: 8px;
+            height: 44px;
+            font-weight: 600;
+            background: #27ae60;
+            border: none;
+        }
+
+        .login-card .btn-success:hover {
+            background: #219150;
+        }
+
+        .login-card .card-footer {
+            padding: 14px;
+            background: #fafafa;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/admin/assets/css/bootstrap.min.css">
-
-    <script src="${pageContext.request.contextPath}/admin/assets/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/admin/assets/js/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.min.js"></script>
 </head>
 
-<body class="bg-success d-flex align-items-center justify-content-center min-vh-100">
+<body class="bg-success">
 
-<div class="login-wrapper w-100">
+<div class="login-overlay">
+    <div class="card shadow-lg login-card">
 
-    <div class="card shadow-lg mx-auto" style="max-width: 420px; border-radius: 10px;">
         <div class="card-header text-center"
              style="background:#35bf76;color:#fff;border-radius:10px 10px 0 0">
+            <h4 class="mb-1">LOGIN</h4>
+            <small>Please enter your login and password</small>
+        </div>
+
+        <div class="card-body p-4">
 
             <c:if test="${param.incorrectAccount != null}">
                 <div class="alert alert-danger text-center">
@@ -120,53 +205,42 @@
                 </div>
             </c:if>
 
-            <div class="card shadow">
-                <div class="card-header text-center" style="background:#35bf76;color:#fff">
-                    <h4 class="mb-0">LOGIN</h4>
-                    <small>Please enter your login and password</small>
+            <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" name="j_username"
+                           class="form-control" placeholder="Tên đăng nhập">
                 </div>
 
-                <div class="card-body p-4">
-                    <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text"
-                                   name="j_username"
-                                   class="form-control"
-                                   placeholder="Tên đăng nhập">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password"
-                                   name="j_password"
-                                   class="form-control"
-                                   placeholder="Mật khẩu">
-                        </div>
-
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="remember">
-                            <label class="form-check-label" for="remember">
-                                Remember password
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn btn-success btn-block">
-                            Đăng nhập
-                        </button>
-
-                    </form>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="j_password"
+                           class="form-control" placeholder="Mật khẩu">
                 </div>
 
-                <div class="card-footer text-center">
-                    <a href="#" class="small">Forgot password?</a>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="remember">
+                    <label class="form-check-label" for="remember">
+                        Remember password
+                    </label>
                 </div>
-            </div>
 
+                <button type="submit" class="btn btn-success btn-block">
+                    Đăng nhập
+                </button>
+            </form>
         </div>
+
+        <div class="card-footer text-center bg-transparent">
+            <a href="#" class="small text-muted">Forgot password?</a>
+        </div>
+
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/admin/assets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/admin/assets/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -73,3 +73,21 @@
 			</div>
 		</div>
 </nav>
+
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">--%>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <link rel="stylesheet"--%>
+<%--          href="${pageContext.request.contextPath}/admin/assets/css/bootstrap.min.css">--%>
+
+<%--    <link rel="stylesheet"--%>
+<%--          href="${pageContext.request.contextPath}/web/css/style.css">--%>
+
+<%--    <link rel="stylesheet"--%>
+<%--          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">--%>
+<%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <title>Trang chủ</title>--%>
+<%--</head>--%>
