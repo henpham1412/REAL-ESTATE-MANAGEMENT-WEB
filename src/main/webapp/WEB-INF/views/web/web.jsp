@@ -3,26 +3,40 @@
 
 <!DOCTYPE html>
 <html lang="vi">
+<%--<head>--%>
+<%--    <meta charset="UTF-8">--%>
+<%--    <title><decorator:title default="Trang chủ"/></title>--%>
+
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+
+<%--    <!-- Bootstrap 4 (GIỮ NGUYÊN như code cũ) -->--%>
+<%--    <link rel="stylesheet"--%>
+<%--          href="${pageContext.request.contextPath}/admin/assets/css/bootstrap.min.css">--%>
+
+<%--    <!-- CSS web -->--%>
+<%--    <link rel="stylesheet"--%>
+<%--          href="${pageContext.request.contextPath}/login/style.css">--%>
+
+<%--    <!-- Font Awesome -->--%>
+<%--    <link rel="stylesheet"--%>
+<%--          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">--%>
+<%--</head>--%>
+
 <head>
     <meta charset="UTF-8">
     <title><decorator:title default="Trang chủ"/></title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- test bắt buộc -->
+    <style>
+        body { background: #f2f2f2; }
+    </style>
 
-    <!-- Bootstrap 4 (GIỮ NGUYÊN như code cũ) -->
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/admin/assets/css/bootstrap.min.css">
-
-    <!-- CSS web -->
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/web/css/style.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/web/css/small-business.css">
 </head>
 
 <body>
+
+<h1 style="color:red">SITEMESH ĐÃ CHẠY</h1>
 
 <jsp:include page="/common/web/header.jsp"/>
 

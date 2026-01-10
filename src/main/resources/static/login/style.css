@@ -7,6 +7,10 @@ body#LoginForm {
 	padding: 10px;
 }
 
+body {
+    background: red !important;
+}
+
 .form-heading {
 	color: #fff;
 	font-size: 23px;

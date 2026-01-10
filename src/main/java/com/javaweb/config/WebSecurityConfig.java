@@ -110,8 +110,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/img/**",
                         "/static/**",
-                        "/template/**"
-                ).permitAll()
+                        "/template/**",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/**/*.png",
+                        "/**/*.jpg",
+                        "/**/*.jpeg",
+                        "/**/*.gif",
+                        "/login/**",
+                        "/register/**",
+                        "/web/**",
+                        "/admin/**"
+                        ).permitAll()
 
                 // ===== PUBLIC PAGES =====
                 .antMatchers(

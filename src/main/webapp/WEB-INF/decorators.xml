@@ -37,14 +37,14 @@
         <pattern>/admin/assets/*</pattern>
     </excludes>
 
-    <decorator name="admin" page="admin.jsp">
-        <pattern>/admin*</pattern>
-    </decorator>
+<!--    <decorator name="admin" page="admin.jsp">-->
+<!--        <pattern>/admin*</pattern>-->
+<!--    </decorator>-->
 
     <decorator name="web" page="web.jsp">
-        <pattern>/</pattern>
-        <pattern>/trang-chu*</pattern>
-        <pattern>/home*</pattern>
+        <pattern>/*</pattern>
+<!--        <pattern>/trang-chu*</pattern>-->
+<!--        <pattern>/home*</pattern>-->
     </decorator>
 
 </decorators>
