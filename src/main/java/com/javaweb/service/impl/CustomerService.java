@@ -138,7 +138,7 @@ public class CustomerService implements ICustomerService {
         for (UserEntity staff: userEntities) {
             String message = "Bạn vừa được giao quản lí khách hàng: " + customerEntity.getFullName();
 
-            String directLink = "/admin/building-edit-" + customerEntity.getId();
+            String directLink = "/admin/customer-edit-" + customerEntity.getId();
 
             NotificationEntity notification = new NotificationEntity();
             notification.setContent(message);

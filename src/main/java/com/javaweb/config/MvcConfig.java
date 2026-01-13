@@ -1,5 +1,6 @@
 package com.javaweb.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -7,15 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    // SỬA DÒNG NÀY:
-    // Thêm tiền tố "file:///" và dùng dấu gạch chéo xuôi
-    private static final String UPLOAD_DIR = "file:///D:/spring/Project-spring-boot-web/images/";
+    // Đọc từ application.properties hoặc environment variable
+    // Nếu không có thì dùng giá trị mặc định cho local development
+    @Value("${app.upload.dir:D:/spring/Project-spring-boot-web/images}")
+    private String uploadDir;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Giữ nguyên: Khi web gọi /images/**
+        // Khi web gọi /images/**, Spring sẽ tìm file trong thư mục uploadDir
         registry.addResourceHandler("/images/**")
-                // Spring sẽ tìm file trong thư mục này
-                .addResourceLocations(UPLOAD_DIR);
+                .addResourceLocations("file:///" + uploadDir + "/");
     }
 }
