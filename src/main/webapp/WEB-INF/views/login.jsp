@@ -7,294 +7,243 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Đăng nhập | SkyLand</title>
-            <!-- Bootstrap 5 CSS -->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-            <!-- Font Awesome -->
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-            <!-- Google Fonts -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
                 rel="stylesheet">
-
             <style>
-                * {
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                *,
+                *::before,
+                *::after {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
                 }
 
                 body {
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                     min-height: 100vh;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    /* Soft gradient - neutral, elegant */
-                    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+                    background-color: #f8fafc;
                     padding: 20px;
+                    line-height: 1.5;
                 }
 
-                .login-container {
+                .login-wrapper {
                     width: 100%;
-                    max-width: 420px;
+                    max-width: 400px;
                 }
 
                 .login-card {
                     background: #ffffff;
-                    border-radius: 16px;
-                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-                    overflow: hidden;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                    border: 1px solid #e2e8f0;
                 }
 
                 .login-header {
-                    background: linear-gradient(135deg, #4a90a4 0%, #357abd 100%);
-                    padding: 40px 30px;
+                    padding: 32px 32px 24px;
                     text-align: center;
-                    color: white;
+                    border-bottom: 1px solid #f1f5f9;
                 }
 
-                .logo-icon {
-                    width: 70px;
-                    height: 70px;
-                    background: rgba(255, 255, 255, 0.2);
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 16px;
-                    font-size: 28px;
-                }
-
-                .login-header h1 {
+                .logo-text {
                     font-size: 28px;
                     font-weight: 700;
-                    margin: 0 0 8px 0;
-                    letter-spacing: 0.5px;
+                    color: #1e293b;
+                    margin-bottom: 4px;
+                    letter-spacing: -0.5px;
                 }
 
-                .login-header p {
+                .logo-subtitle {
                     font-size: 14px;
-                    opacity: 0.9;
-                    margin: 0;
+                    color: #64748b;
                 }
 
                 .login-body {
-                    padding: 35px;
+                    padding: 32px;
                 }
 
-                .alert-danger {
-                    background: #fef2f2;
+                .alert-error {
+                    background-color: #fef2f2;
                     border: 1px solid #fecaca;
                     color: #dc2626;
-                    border-radius: 10px;
-                    padding: 14px 16px;
+                    padding: 12px 16px;
+                    border-radius: 8px;
                     margin-bottom: 24px;
                     font-size: 14px;
                 }
 
                 .form-group {
-                    margin-bottom: 22px;
+                    margin-bottom: 20px;
                 }
 
-                .form-group label {
+                .form-label {
                     display: block;
-                    color: #374151;
-                    font-weight: 600;
                     font-size: 14px;
-                    margin-bottom: 8px;
+                    font-weight: 500;
+                    color: #374151;
+                    margin-bottom: 6px;
                 }
 
-                .input-group {
-                    position: relative;
-                }
-
-                .input-group .input-icon {
-                    position: absolute;
-                    left: 16px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    color: #9ca3af;
-                    font-size: 16px;
-                    z-index: 10;
-                }
-
-                .form-control {
-                    height: 50px;
-                    padding: 12px 16px 12px 48px;
-                    border: 2px solid #e5e7eb;
-                    border-radius: 10px;
+                .form-input {
+                    width: 100%;
+                    height: 44px;
+                    padding: 0 14px;
                     font-size: 15px;
-                    transition: all 0.2s ease;
-                    background: #f9fafb;
+                    font-family: inherit;
+                    color: #1e293b;
+                    background-color: #ffffff;
+                    border: 1px solid #d1d5db;
+                    border-radius: 8px;
+                    transition: border-color 0.15s ease, box-shadow 0.15s ease;
                 }
 
-                .form-control:focus {
+                .form-input:focus {
                     outline: none;
-                    border-color: #4a90a4;
-                    background: #fff;
-                    box-shadow: 0 0 0 4px rgba(74, 144, 164, 0.1);
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
                 }
 
-                .form-control::placeholder {
+                .form-input::placeholder {
                     color: #9ca3af;
                 }
 
-                .remember-row {
+                .form-options {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     margin-bottom: 24px;
-                }
-
-                .form-check-input:checked {
-                    background-color: #4a90a4;
-                    border-color: #4a90a4;
-                }
-
-                .form-check-label {
-                    color: #6b7280;
                     font-size: 14px;
+                }
+
+                .checkbox-wrapper {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                     cursor: pointer;
                 }
 
+                .checkbox-wrapper input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                    accent-color: #3b82f6;
+                    cursor: pointer;
+                }
+
+                .checkbox-wrapper span {
+                    color: #4b5563;
+                }
+
                 .forgot-link {
-                    color: #4a90a4;
-                    font-size: 14px;
+                    color: #3b82f6;
                     text-decoration: none;
                     font-weight: 500;
                 }
 
                 .forgot-link:hover {
-                    color: #357abd;
                     text-decoration: underline;
                 }
 
                 .btn-login {
                     width: 100%;
-                    height: 50px;
-                    background: linear-gradient(135deg, #4a90a4 0%, #357abd 100%);
+                    height: 44px;
+                    background-color: #3b82f6;
+                    color: #ffffff;
                     border: none;
-                    border-radius: 10px;
-                    color: white;
-                    font-size: 16px;
+                    border-radius: 8px;
+                    font-size: 15px;
                     font-weight: 600;
+                    font-family: inherit;
                     cursor: pointer;
-                    transition: all 0.2s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
+                    transition: background-color 0.15s ease;
                 }
 
                 .btn-login:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 8px 20px rgba(74, 144, 164, 0.3);
+                    background-color: #2563eb;
+                }
+
+                .btn-login:active {
+                    background-color: #1d4ed8;
                 }
 
                 .login-footer {
-                    padding: 20px 35px;
-                    background: #f9fafb;
+                    padding: 16px 32px;
                     text-align: center;
-                    border-top: 1px solid #e5e7eb;
+                    background-color: #f8fafc;
+                    border-top: 1px solid #f1f5f9;
+                    border-radius: 0 0 12px 12px;
                 }
 
                 .login-footer p {
-                    color: #6b7280;
                     font-size: 13px;
-                    margin: 0;
+                    color: #94a3b8;
                 }
 
-                /* Responsive */
                 @media (max-width: 480px) {
-                    .login-header {
-                        padding: 30px 20px;
-                    }
 
+                    .login-header,
                     .login-body {
-                        padding: 25px 20px;
+                        padding: 24px;
                     }
 
-                    .login-header h1 {
-                        font-size: 24px;
+                    .login-footer {
+                        padding: 16px 24px;
                     }
                 }
             </style>
         </head>
 
         <body>
-            <div class="login-container">
+            <div class="login-wrapper">
                 <div class="login-card">
-                    <!-- Header -->
                     <div class="login-header">
-                        <div class="logo-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <h1>SkyLand</h1>
-                        <p>Hệ thống quản lý bất động sản</p>
+                        <div class="logo-text">SkyLand</div>
+                        <div class="logo-subtitle">Hệ thống quản lý bất động sản</div>
                     </div>
 
-                    <!-- Body -->
                     <div class="login-body">
-                        <!-- Error Messages -->
                         <c:if test="${param.incorrectAccount != null}">
-                            <div class="alert alert-danger">
-                                <i class="fas fa-exclamation-circle me-2"></i>
-                                Tên đăng nhập hoặc mật khẩu không đúng
-                            </div>
+                            <div class="alert-error">Tên đăng nhập hoặc mật khẩu không đúng</div>
                         </c:if>
                         <c:if test="${param.accessDenied != null}">
-                            <div class="alert alert-danger">
-                                <i class="fas fa-ban me-2"></i>
-                                Bạn không có quyền truy cập
-                            </div>
+                            <div class="alert-error">Bạn không có quyền truy cập</div>
                         </c:if>
                         <c:if test="${param.sessionTimeout != null}">
-                            <div class="alert alert-danger">
-                                <i class="fas fa-clock me-2"></i>
-                                Phiên đăng nhập đã hết hạn
-                            </div>
+                            <div class="alert-error">Phiên đăng nhập đã hết hạn</div>
                         </c:if>
 
-                        <!-- Login Form -->
                         <form action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
                             <div class="form-group">
-                                <label for="username">Tên đăng nhập</label>
-                                <div class="input-group">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input type="text" id="username" name="j_username" class="form-control"
-                                        placeholder="Nhập tên đăng nhập" required autocomplete="username">
-                                </div>
+                                <label class="form-label">Tên đăng nhập</label>
+                                <input type="text" name="j_username" class="form-input" placeholder="Nhập tên đăng nhập"
+                                    required autocomplete="username">
                             </div>
 
                             <div class="form-group">
-                                <label for="password">Mật khẩu</label>
-                                <div class="input-group">
-                                    <i class="fas fa-lock input-icon"></i>
-                                    <input type="password" id="password" name="j_password" class="form-control"
-                                        placeholder="Nhập mật khẩu" required autocomplete="current-password">
-                                </div>
+                                <label class="form-label">Mật khẩu</label>
+                                <input type="password" name="j_password" class="form-input" placeholder="Nhập mật khẩu"
+                                    required autocomplete="current-password">
                             </div>
 
-                            <div class="remember-row">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                    <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
-                                </div>
+                            <div class="form-options">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" name="remember">
+                                    <span>Ghi nhớ đăng nhập</span>
+                                </label>
                                 <a href="#" class="forgot-link">Quên mật khẩu?</a>
                             </div>
 
-                            <button type="submit" class="btn-login">
-                                <i class="fas fa-sign-in-alt"></i>
-                                Đăng nhập
-                            </button>
+                            <button type="submit" class="btn-login">Đăng nhập</button>
                         </form>
                     </div>
 
-                    <!-- Footer -->
                     <div class="login-footer">
                         <p>&copy; 2024 SkyLand. All rights reserved.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         </body>
 
         </html>
