@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<decorators defaultdir="/decorators">-->
-
-<!--    <excludes>-->
-<!--        <pattern>/404-page.html</pattern>-->
-<!--        <pattern>/api*</pattern>-->
-<!--        <pattern>/access-denied</pattern>-->
-<!--        <pattern>/ckfinder*</pattern>-->
-<!--        <pattern>/logout</pattern>-->
-<!--    </excludes>-->
-
-
-<!--    -->
-<!--    <decorator name="admin" page="admin.jsp">-->
-<!--       <pattern>/admin*</pattern>-->
-<!--    </decorator>-->
-
-<!--    <decorator name="login" page="login.jsp">-->
-<!--        <pattern>/login</pattern>-->
-<!--    </decorator>-->
-
-<!--    <decorator name="web" page="web.jsp">-->
-<!--        <pattern>/*</pattern>-->
-<!--    </decorator>-->
-
-<!--    <excludes>-->
-<!--        <pattern>/assets/*</pattern>-->
-<!--    </excludes>-->
-<!--</decorators>-->
-
 <decorators defaultdir="/decorators">
 
     <excludes>
-        <pattern>/login*</pattern>
-        <pattern>/register*</pattern>
-        <pattern>/j_spring_security_check</pattern>
-        <pattern>/admin/assets/*</pattern>
+        <pattern>/404-page.html</pattern>
+        <pattern>/api*</pattern>
+        <pattern>/access-denied</pattern>
+        <pattern>/ckfinder*</pattern>
+        <pattern>/logout</pattern>
     </excludes>
 
-<!--    <decorator name="admin" page="admin.jsp">-->
-<!--        <pattern>/admin*</pattern>-->
-<!--    </decorator>-->
+
+
+    <decorator name="admin" page="admin.jsp">
+       <pattern>/admin*</pattern>
+    </decorator>
+
+    <decorator name="login" page="login.jsp">
+        <pattern>/login</pattern>
+    </decorator>
 
     <decorator name="web" page="web.jsp">
         <pattern>/*</pattern>
-<!--        <pattern>/trang-chu*</pattern>-->
-<!--        <pattern>/home*</pattern>-->
     </decorator>
 
+    <excludes>
+        <pattern>/assets/*</pattern>
+    </excludes>
 </decorators>
+
+<!--<decorators defaultdir="/decorators">-->
+
+<!--    <excludes>-->
+<!--        <pattern>/login*</pattern>-->
+<!--        <pattern>/register*</pattern>-->
+<!--        <pattern>/j_spring_security_check</pattern>-->
+<!--        <pattern>/admin/assets/*</pattern>-->
+<!--    </excludes>-->
+
+<!--&lt;!&ndash;    <decorator name="admin" page="admin.jsp">&ndash;&gt;-->
+<!--&lt;!&ndash;        <pattern>/admin*</pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;    </decorator>&ndash;&gt;-->
+
+<!--    <decorator name="web" page="web.jsp">-->
+<!--        <pattern>/*</pattern>-->
+<!--&lt;!&ndash;        <pattern>/trang-chu*</pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;        <pattern>/home*</pattern>&ndash;&gt;-->
+<!--    </decorator>-->
+
+<!--</decorators>-->
