@@ -1,27 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@include file="/common/taglib.jsp" %>
         <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request" />
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+        <!DOCTYPE html>
         <html>
 
         <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>
                 <dec:title default="Đăng nhập" />
             </title>
-            <script>
-                window.APP_CONFIG = {
-                    contextPath: '${pageContext.request.contextPath}',
-                    apiBase: '${pageContext.request.contextPath}/api'
-                };
-            </script>
-            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
-                id="bootstrap-css">
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <link href="<c:url value='/login/style.css' />" rel="stylesheet" type="text/css" media="all" />
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    padding: 20px;
+                }
+            </style>
         </head>
 
-        <body id="LoginForm" style="background-color: #2c7659">
+        <body>
             <dec:body />
         </body>
 
