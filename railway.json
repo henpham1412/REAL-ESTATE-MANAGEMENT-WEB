@@ -5,9 +5,9 @@
     "buildCommand": "mvn clean install -DskipTests"
   },
   "deploy": {
-    "startCommand": "java -Xmx384m -Xms256m -Dserver.port=${PORT} -jar target/spring-boot-1.0.war",
-    "healthCheckPath": "/api/public/health",
-    "healthCheckTimeout": 300,
+    "startCommand": "java -Xmx220m -Xms128m -XX:MaxMetaspaceSize=100m -XX:+UseSerialGC -Xss256k -Dserver.port=${PORT} -jar target/spring-boot-1.0.war",
+    "healthCheckPath": "/",
+    "healthCheckTimeout": 360,
     "restartPolicyType": "ON_FAILURE"
   }
 }
